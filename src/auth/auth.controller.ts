@@ -11,7 +11,7 @@ import { RegisterDto } from './dtos/register.dto';
 import * as bcrypt from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Auth')
 @Controller()
@@ -21,6 +21,10 @@ export class AuthController {
         private jwtService: JwtService
     ) {}
 
+    @ApiBody({
+        type: RegisterDto,
+        description: 'Register a new user'
+    })
     @Post('admin/register')
     async register(@Body() body: RegisterDto) {
         const { password_confirm, ...data } = body;
